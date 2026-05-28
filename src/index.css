@@ -307,7 +307,6 @@ canvas {
 }
 
 .about-portrait-frame {
-  width: min(100%, 420px);
   aspect-ratio: 1;
   padding: clamp(0.9rem, 2vw, 1.2rem);
   border-radius: 999px;
@@ -356,15 +355,15 @@ canvas {
 }
 
 .about-badges .box1 {
-  top: 15%;
-  left: 6%;
+  top: 21%;
+  left: 4%;
   --float-duration: 11s;
   --float-delay: -2s;
   --badge-rotate: -4deg;
 }
 
 .about-badges .box2 {
-  top: 14%;
+  top: 20%;
   right: 6%;
   --float-duration: 13s;
   --float-delay: -5s;
@@ -373,7 +372,7 @@ canvas {
 
 .about-badges .box3 {
   bottom: 14%;
-  left: 10%;
+  left: 4%;
   --float-duration: 12s;
   --float-delay: -3s;
   --badge-rotate: 3deg;
@@ -381,7 +380,7 @@ canvas {
 
 .about-badges .box4 {
   bottom: 12%;
-  right: 14%;
+  right: 15%;
   --float-duration: 14s;
   --float-delay: -6s;
   --badge-rotate: -6deg;
@@ -573,11 +572,12 @@ canvas {
 }
 
 .section-label {
+  font-size: 20px;
   margin: 0 0 0.75rem;
   color: rgba(94, 240, 216, 0.85);
   text-transform: uppercase;
-  letter-spacing: 0.28em;
-  font-size: 0.72rem;
+  letter-spacing: 0.10em;
+  
   font-weight: 700;
 }
 

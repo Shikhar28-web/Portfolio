@@ -24,7 +24,7 @@ export function SplineSceneBasic() {
     },
     {
       title: 'What keeps me inspired',
-      text: 'Photography, cricket, music, and exploring new AI tools and ideas.',
+      text: 'Basketball, music, and exploring new AI tools and ideas.',
     },
   ]
   const floatingBadges = [
