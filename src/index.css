@@ -67,8 +67,8 @@ canvas {
 .hero-page {
   position: relative;
   min-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-x: visible;
+  overflow-y: visible;
   background:
     radial-gradient(circle at 20% 20%, rgba(124, 92, 255, 0.14), transparent 28%),
     radial-gradient(circle at 80% 30%, rgba(94, 240, 216, 0.1), transparent 24%),
@@ -107,7 +107,8 @@ canvas {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   min-height: 100vh;
-  align-items: stretch;
+  align-items: center;
+  
 }
 
 .hero-copy {
@@ -120,7 +121,39 @@ canvas {
   padding-right: clamp(1rem, 2vw, 2rem);
   padding-top: clamp(4.5rem, 8vw, 7rem);
 }
+.hero-robot {
 
+  position: relative;
+
+  width: 100%;
+
+  height: 100vh;
+
+  overflow: visible;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+.hero-spline {
+
+  width: 100%;
+
+  height: 100%;
+
+  overflow: visible;
+
+}
+
+.hero-spline canvas {
+
+  overflow: visible !important;
+
+}
 .hero-title {
   margin: 0;
   display: flex;
@@ -1026,7 +1059,11 @@ canvas {
   body {
     overflow: auto;
   }
+.hero-robot {
 
+  height: 70vh;
+
+}
   .hero-content {
     grid-template-columns: 1fr;
   }
@@ -1392,4 +1429,39 @@ canvas {
     flex-direction: column;
     text-align: center;
   }
+}
+.hero-robot {
+
+  position: relative;
+
+  width: 100%;
+
+  height: 100vh;
+
+  overflow: visible;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+.hero-spline {
+
+  width: 100%;
+
+  height: 100%;
+
+  overflow: visible;
+
+}
+
+.hero {
+
+  overflow: visible;
+
+  min-height: 110vh;
+
 }

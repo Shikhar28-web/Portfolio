@@ -182,3 +182,38 @@
     border-right-color: var(--border);
   }
 }
+.hero-robot {
+
+  position: relative;
+
+  width: 100%;
+
+  height: 100vh;
+
+  overflow: visible;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+.hero-spline {
+
+  width: 100%;
+
+  height: 100%;
+
+  overflow: visible;
+
+}
+
+.hero {
+
+  overflow: visible;
+
+  min-height: 110vh;
+
+}
