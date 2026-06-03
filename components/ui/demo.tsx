@@ -1,9 +1,40 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import {
+  SiAngular,
+  SiBootstrap,
+  SiFlask,
+  SiGit,
+  SiGithub,
+  SiHtml5,
+  SiJavascript,
+  SiKeras,
+  SiMysql,
+  SiOpenjdk,
+  SiPostman,
+  SiPython,
+  SiSap,
+  SiStreamlit,
+  SiTensorflow,
+  SiTypescript,
+} from 'react-icons/si'
+import { FaCss3Alt, FaDatabase } from 'react-icons/fa'
+import { TbApi, TbBinaryTree2, TbCpu, TbDatabase, TbHierarchy3 } from 'react-icons/tb'
+import { VscVscode } from 'react-icons/vsc'
+import { X, ExternalLink } from 'lucide-react'
 
+import { CardStack, CardStackItem } from '@/components/ui/card-stack'
 import { Header } from '@/components/ui/header-2'
 import { SplineScene } from '@/components/ui/splite'
+
+type ProjectCard = CardStackItem & {
+  overview: string
+  fullDescription: string
+  githubUrl: string
+  liveUrl: string
+  details: string[]
+}
 
 export function SplineSceneBasic() {
   const heroRef = useRef<HTMLDivElement>(null)
@@ -13,6 +44,62 @@ export function SplineSceneBasic() {
   const introFull = "Passionate about creating meaningful digital experiences and constantly exploring new ways to grow, learn, and innovate.";
   const [introTyped, setIntroTyped] = useState('')
   const [introDone, setIntroDone] = useState(false)
+  const skillGroups = [
+    {
+      title: 'Languages',
+      items: [
+        { name: 'Java', Icon: SiOpenjdk },
+        { name: 'Python', Icon: SiPython },
+        { name: 'JavaScript', Icon: SiJavascript },
+        { name: 'TypeScript', Icon: SiTypescript },
+        { name: 'SQL', Icon: FaDatabase },
+      ],
+    },
+    {
+      title: 'Web Development',
+      items: [
+        { name: 'Angular', Icon: SiAngular },
+        { name: 'HTML', Icon: SiHtml5 },
+        { name: 'CSS', Icon: FaCss3Alt },
+        { name: 'Bootstrap', Icon: SiBootstrap },
+        { name: 'REST APIs', Icon: TbApi },
+      ],
+    },
+    {
+      title: 'Frameworks & Libraries',
+      items: [
+        { name: 'Flask', Icon: SiFlask },
+        { name: 'Streamlit', Icon: SiStreamlit },
+        { name: 'TensorFlow', Icon: SiTensorflow },
+        { name: 'Keras', Icon: SiKeras },
+      ],
+    },
+    {
+      title: 'Database Technologies',
+      items: [
+        { name: 'MySQL', Icon: SiMysql },
+        { name: 'SAP HANA', Icon: SiSap },
+      ],
+    },
+    {
+      title: 'Developer Tools',
+      items: [
+        { name: 'Git', Icon: SiGit },
+        { name: 'GitHub', Icon: SiGithub },
+        { name: 'VS Code', Icon: VscVscode },
+        { name: 'Postman', Icon: SiPostman },
+      ],
+    },
+    {
+      title: 'Computer Science Fundamentals',
+      items: [
+        { name: 'DSA', Icon: TbBinaryTree2 },
+        { name: 'OOPs', Icon: TbHierarchy3 },
+        { name: 'DBMS', Icon: TbDatabase },
+        { name: 'Operating Systems', Icon: TbCpu },
+      ],
+    },
+  ]
   const aboutCards = [
     {
       title: 'What I study',
@@ -33,6 +120,79 @@ export function SplineSceneBasic() {
     { title: 'Mindset', text: 'Creative problem solving', className: 'box3' },
     { title: 'Passion', text: 'Exploring new AI tools', className: 'box4' },
   ]
+  const projects: ProjectCard[] = [
+    {
+      id: 1,
+      title: 'Aira',
+      
+      ctaLabel: 'Open project',
+      description: 'A multilingual AI companion platform with voice chat, offline AI processing, wake-word detection, and personalized companion interactions powered by a multi-agent AI system.',
+      overview: 'A multilingual AI companion platform with voice chat, offline AI processing, wake-word detection, and personalized companion interactions powered by a multi-agent AI system.',
+      fullDescription:
+        'Aira combines a web app, standalone voice assistant, and offline-first AI pipeline to deliver intelligent real-time conversations with voice cloning, multilingual support, secure authentication, and companion-based memory. It uses multiple AI agents for speech recognition, reasoning, and speech synthesis to create a smooth human-like assistant experience.',
+      imageSrc: '/Aira.png',
+      githubUrl: 'https://github.com/Shikhar28-web/Aira#aira-aira',
+      liveUrl: 'https://github.com/Shikhar28-web/Aira#aira-aira',
+      details: ['Python', 'Flask', 'SQLite', 'JavaScript', 'HTML', 'CSS', 'Ollama', 'Faster-Whisper', 'Coqui XTTS v2',' ElevenLabs API', 'TensorFlow', 'pyttsx3', 'bcrypt', 'Web APIs'],
+    },
+    {
+      id: 2,
+      title: 'Quiz Hub ',
+      
+      ctaLabel: 'Open project',
+      description: 'AI-powered quiz generation platform that creates smart quizzes from files, URLs, or text with auto-grading and AI assistance.',
+      overview: 'Quiz Hub helps teachers and learners generate interactive quizzes instantly using AI. It supports multiple question types, shareable test links, student feedback, and real-time evaluation.',
+      fullDescription:
+        'Quiz Hub helps teachers and learners generate interactive quizzes instantly using AI. It supports multiple question types, shareable test links, student feedback, and real-time evaluation.',
+      imageSrc: '\quizehub.png',
+      githubUrl: 'https://github.com/Shikhar28-web/Quiz-Hub',
+      liveUrl: 'https://github.com/Shikhar28-web/Quiz-Hub',
+      details: ['Flask', 'SQLite', 'HTML','CSS', 'JavaScript', 'Google Gemini API', 'Hugging Face API'],
+    },
+    {
+      id: 3,
+      title: 'Financial Report Analysis',
+      tag: 'Agentic AI',
+      ctaLabel: 'Open project',
+      description: 'RAG-powered AI platform to query financial reports using natural language.',
+      overview: 'Upload PDF, Excel, or CSV financial reports and ask plain-language questions — the system retrieves relevant sections and returns accurate, fact-based insights using LLMs and semantic search.',
+      fullDescription:
+        'Built on a FastAPI backend with Groq Llama 3.1 as the LLM, this RAG architecture uses Sentence Transformers (all-MiniLM-L6-v2) for embeddings and ChromaDB for persistent vector storage. LangChain handles section-aware chunking and retrieval, while Pandas and PyPDF process the uploaded documents. Features include automatic fiscal year detection, semantic document search, and multi-format file support.',
+      imageSrc: '/finreport.png',
+      githubUrl: 'https://github.com/Shikhar28-web/Finacial_report_analysis',
+      liveUrl: 'https://github.com/Shikhar28-web/Finacial_report_analysis',
+      details: ['FastAPI', 'Groq Llama 3.1', 'ChromaDB', 'Sentence Transformers', 'LangChain', 'Pandas + PyPDF'],
+    },
+    {
+      id: 4,
+      title: 'NutriScan',
+      tag: 'AI / Health',
+      ctaLabel: 'Open project',
+      description: 'AI-powered smart nutrition analyzer that scans barcodes and gives instant health insights.',
+      overview: 'NutriScan lets users scan any product barcode and instantly get nutrition details, AI-based health scores, and personalized food ratings to make smarter dietary choices.',
+      fullDescription:
+        'Built with a React + Tailwind frontend and a Flask backend, NutriScan integrates the Open Food Facts API to fetch real product data and applies AI health scoring to rate foods on the fly. Barcode scanning, REST APIs, and a lightweight SQLite database make the whole experience fast and offline-friendly.',
+      imageSrc: '/nutriscan.png',
+      githubUrl: 'https://github.com/Shikhar28-web/NutriScan',
+      liveUrl: 'https://github.com/Shikhar28-web/NutriScan',
+      details: ['React + Tailwind', 'Flask (Python)', 'Open Food Facts API', 'AI Health Scoring', 'Barcode Scanner', 'SQLite'],
+    },
+    {
+      id: 5,
+      title: 'Bull Brain',
+      tag: 'Stock Market',
+      ctaLabel: 'Open project',
+      description: 'AI-powered stock market prediction web app that forecasts future stock prices using LSTM deep learning models and historical market data.',
+      overview: 'AI-powered stock market prediction web app that forecasts future stock prices using LSTM deep learning models and historical market data.',
+      fullDescription:
+        'This platform allows users to analyze stock trends, visualize moving averages, and compare actual vs predicted prices through interactive charts and real-time insights. It combines machine learning with a clean and user-friendly interface for smarter investment analysis.',
+      imageSrc: '\stcok.png',
+      githubUrl: 'https://github.com/Shikhar28-web/Stock-Prediction',
+      liveUrl: 'https://github.com/Shikhar28-web/Stock-Prediction',
+      details: ['Python', 'Streamlit', 'TensorFlow', 'Keras', 'Pandas', 'NumPy',' Scikit-Learn', 'Matplotlib', 'yFinance', 'HTML', 'CSS', 'JavaScript'],
+    },
+  ]
+  const [selectedProject, setSelectedProject] = useState<ProjectCard | null>(null)
 
   useEffect(() => {
     const hero = heroRef.current
@@ -101,12 +261,30 @@ export function SplineSceneBasic() {
           else el.classList.remove('in-view')
         })
       },
-      { threshold: 0.15 }
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
     )
 
     document.querySelectorAll('.fade-item').forEach((el) => observer.observe(el))
     return () => observer.disconnect()
   }, [])
+
+  useEffect(() => {
+    if (!selectedProject) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedProject(null)
+    }
+
+    window.addEventListener('keydown', handleEscape)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleEscape)
+    }
+  }, [selectedProject])
 
   
 
@@ -141,7 +319,7 @@ export function SplineSceneBasic() {
       </section>
 
       
-      <section className="about-full" id="about">
+      <section className="about-full fade-item" id="about">
         <div className="about-badges" aria-hidden="true">
           {floatingBadges.map((badge) => (
             <div key={badge.title} className={`float-box ${badge.className} fade-item`}>
@@ -153,9 +331,8 @@ export function SplineSceneBasic() {
 
         <div className="about-content">
           <div className="about-copy">
-            <p className="section-label about-label">About Me</p>
-            <h2 className="about-heading">A grounded builder with a curious streak</h2>
-            <p className="typed-intro">
+            <h2 className="about-heading fade-item">A grounded builder with a curious streak</h2>
+            <p className="typed-intro fade-item" style={{ transitionDelay: '80ms' }}>
               {introTyped}
               {!introDone && <span className="typing-cursor small" />}
             </p>
@@ -178,8 +355,8 @@ export function SplineSceneBasic() {
             </div>
 
             <div className="about-details">
-              {aboutCards.map((card) => (
-                <article key={card.title} className="about-detail-card fade-item">
+              {aboutCards.map((card, i) => (
+                <article key={card.title} className="about-detail-card fade-item" style={{ transitionDelay: `${120 + i * 80}ms` }}>
                   <p className="about-detail-label">{card.title}</p>
                   <p className="about-detail-text">{card.text}</p>
                 </article>
@@ -188,28 +365,210 @@ export function SplineSceneBasic() {
           </div>
 
           <div className="about-visual" aria-hidden="false">
-            <div className="about-portrait-frame fade-item">
+            <div className="about-portrait-frame fade-item" style={{ transitionDelay: '200ms' }}>
               <img className="about-photo" src="/me.jpg" alt="Shikhar Verma" />
             </div>
           </div>
         </div>
       </section>
 
-        <section className="section-grid" id="skill">
-          <article className="section-card">
-            <p className="section-label">Skill</p>
-            <h2>React, TypeScript, Tailwind, GSAP, Spline</h2>
-          </article>
-          <article className="section-card" id="projects">
-            <p className="section-label">Projects</p>
-            <h2>Interactive landing pages and 3D storytelling builds.</h2>
-          </article>
-        </section>
+      <section className="skills-section" id="skill">
+        <div className="skills-title-wrap fade-item">
+          <p className="section-label skills-label skills-label-center">Skills</p>
+        </div>
 
-        <section className="section-card" id="contact">
-          <p className="section-label">Contact</p>
-          <h2>Open to freelance, collaboration, and creative builds.</h2>
-        </section>
+        <div className="skills-panels fade-item">
+          {skillGroups.map((group, gi) => (
+            <article key={group.title} className="skills-panel fade-item" style={{ transitionDelay: `${gi * 80}ms` }}>
+              <p className="skills-panel-title">{group.title}</p>
+              <div className="skill-ball-grid" role="list" aria-label={group.title}>
+                {group.items.map((item, index) => (
+                  <div
+                    key={item.name}
+                    className={`skill-ball skill-ball-${(index % 5) + 1}`}
+                    role="listitem"
+                    aria-label={item.name}
+                  >
+                    <item.Icon className="skill-ball-icon" aria-hidden="true" />
+                    <span className="skill-ball-name">{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="projects-section" id="projects">
+        <div className="projects-header fade-item">
+          <h2 className="projects-heading">Crafting smart digital experiences with AI and modern tech.</h2>
+          
+        </div>
+
+        <div className="projects-stack-wrap fade-item">
+          <CardStack
+            items={projects}
+            initialIndex={0}
+            autoAdvance
+            intervalMs={2600}
+            pauseOnHover
+            showDots
+            onAction={(project) => setSelectedProject(project)}
+            className="projects-stack"
+          />
+        </div>
+      </section>
+
+      {/* ── Footer ── */}
+      <footer className="site-footer fade-item" id="contact">
+        <div className="footer-inner">
+          {/* Nav tabs */}
+          <nav className="footer-nav" aria-label="Footer navigation">
+            {[
+              { label: 'Home', href: '#home' },
+              { label: 'About', href: '#about' },
+              { label: 'Skills', href: '#skill' },
+              { label: 'Projects', href: '#projects' },
+              { label: 'Contact', href: '#contact' },
+            ].map((link) => (
+              <a key={link.label} href={link.href} className="footer-nav-link">
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Divider */}
+          <div className="footer-divider" aria-hidden="true" />
+
+          {/* Contact section */}
+          <div className="footer-contact">
+            <p className="footer-contact-heading">Get in touch</p>
+            <div className="footer-contact-links">
+              {/* Email */}
+              <a
+                href="mailto:shikharverma950@gmail.com"
+                className="footer-contact-card"
+                aria-label="Send email to Shikhar Verma"
+              >
+                <span className="footer-contact-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                </span>
+                <span className="footer-contact-info">
+                  <strong>Email</strong>
+                  <span>shikharverma950@gmail.com</span>
+                </span>
+              </a>
+
+              {/* GitHub */}
+              <a
+                href="https://github.com/shikharverma"
+                target="_blank"
+                rel="noreferrer"
+                className="footer-contact-card"
+                aria-label="Shikhar Verma on GitHub"
+              >
+                <span className="footer-contact-icon" aria-hidden="true">
+                  <SiGithub size={20} />
+                </span>
+                <span className="footer-contact-info">
+                  <strong>GitHub</strong>
+                  <span>github.com/shikharverma</span>
+                </span>
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/in/shikhar-verma-72a732325/"
+                target="_blank"
+                rel="noreferrer"
+                className="footer-contact-card"
+                aria-label="Shikhar Verma on LinkedIn"
+              >
+                <span className="footer-contact-icon linkedin" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                    <rect x="2" y="9" width="4" height="12" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
+                </span>
+                <span className="footer-contact-info">
+                  <strong>LinkedIn</strong>
+                  <span>shikhar-verma-72a732325</span>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="footer-bottom">
+            <p className="footer-copy">
+              © {new Date().getFullYear()} Shikhar Verma. Built with React &amp; Vite.
+            </p>
+            <p className="footer-made">Designed &amp; developed with ♥</p>
+          </div>
+        </div>
+      </footer>
+
+      {selectedProject ? (
+        <div
+          className="project-modal-overlay"
+          role="presentation"
+          onClick={() => setSelectedProject(null)}
+        >
+          <div
+            className="project-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="project-modal-close"
+              onClick={() => setSelectedProject(null)}
+              aria-label="Close project details"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="project-modal-media">
+              <img src={selectedProject.imageSrc} alt={selectedProject.title} className="project-modal-image" />
+            </div>
+
+            <div className="project-modal-body">
+              <p className="project-modal-tag">{selectedProject.tag}</p>
+              <h3 id="project-modal-title" className="project-modal-title">
+                {selectedProject.title}
+              </h3>
+              <p className="project-modal-overview">{selectedProject.overview}</p>
+              <p className="project-modal-description">{selectedProject.fullDescription}</p>
+
+              <div className="project-modal-details">
+                {selectedProject.details.map((detail) => (
+                  <span key={detail} className="project-modal-pill">
+                    {detail}
+                  </span>
+                ))}
+              </div>
+
+              <div className="project-modal-links">
+                <a href={selectedProject.githubUrl} target="_blank" rel="noreferrer" className="project-link-btn">
+                  <SiGithub className="h-4 w-4" />
+                  GitHub
+                </a>
+                <a href={selectedProject.liveUrl} target="_blank" rel="noreferrer" className="project-link-btn project-link-btn-primary">
+                  <ExternalLink className="h-4 w-4" />
+                  Live Demo
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
     </div>
   )
 }

@@ -16,23 +16,16 @@ Default paths:
 If `components/ui` does not exist in a shadcn project, create it first. That folder is important because shadcn CLI-generated components and most examples expect reusable UI primitives to live there, which keeps imports consistent and avoids path drift later.
 
 Run it locally:
-
 ```bash
 npm install
 npm run dev
 ```
-
 Build check:
-
 ```bash
 npm run build
 ```
-
 If you want to add more shadcn components later, the usual flow is:
-
 ```bash
 npx shadcn@latest init
 npx shadcn@latest add button
 ```
-
-
