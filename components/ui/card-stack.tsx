@@ -88,6 +88,32 @@ export function CardStack<T extends CardStackItem>({
   const [active, setActive] = React.useState(() => wrapIndex(initialIndex, length));
   const [hovering, setHovering] = React.useState(false);
 
+  // Responsive card dimensions
+  const [responsiveWidth, setResponsiveWidth] = React.useState(cardWidth);
+  const [responsiveHeight, setResponsiveHeight] = React.useState(cardHeight);
+
+  React.useEffect(() => {
+    const update = () => {
+      const vw = window.innerWidth;
+      if (vw < 480) {
+        setResponsiveWidth(Math.min(vw - 32, cardWidth));
+        setResponsiveHeight(Math.round((vw - 32) * 0.6));
+      } else if (vw < 768) {
+        setResponsiveWidth(Math.min(vw - 48, cardWidth));
+        setResponsiveHeight(Math.round(Math.min(vw - 48, cardWidth) * 0.62));
+      } else if (vw < 1024) {
+        setResponsiveWidth(Math.min(vw * 0.7, cardWidth));
+        setResponsiveHeight(Math.round(Math.min(vw * 0.7, cardWidth) * 0.65));
+      } else {
+        setResponsiveWidth(cardWidth);
+        setResponsiveHeight(cardHeight);
+      }
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, [cardWidth, cardHeight]);
+
   React.useEffect(() => {
     setActive((current) => wrapIndex(current, length));
   }, [length]);
@@ -98,7 +124,7 @@ export function CardStack<T extends CardStackItem>({
   }, [active, items, length, onChangeIndex]);
 
   const maxOffset = Math.max(0, Math.floor(maxVisible / 2));
-  const cardSpacing = Math.max(12, Math.round(cardWidth * (1 - overlap)));
+  const cardSpacing = Math.max(12, Math.round(responsiveWidth * (1 - overlap)));
   const stepDeg = maxOffset > 0 ? spreadDeg / maxOffset : 0;
 
   const canGoPrev = loop || active > 0;
@@ -135,7 +161,7 @@ export function CardStack<T extends CardStackItem>({
     >
       <div
         className="relative w-full"
-        style={{ height: Math.max(420, cardHeight + 100) }}
+        style={{ height: Math.max(300, responsiveHeight + 100) }}
       >
         <div
           className="pointer-events-none absolute inset-x-0 top-8 mx-auto h-48 w-[72%] rounded-full bg-black/10 blur-3xl dark:bg-white/5"
@@ -177,8 +203,8 @@ export function CardStack<T extends CardStackItem>({
                     activeCard ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer',
                   )}
                   style={{
-                    width: cardWidth,
-                    height: cardHeight,
+                    width: responsiveWidth,
+                    height: responsiveHeight,
                     zIndex,
                     transformStyle: 'preserve-3d',
                   }}
