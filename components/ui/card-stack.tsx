@@ -51,11 +51,65 @@ function wrapIndex(index: number, length: number) {
 function signedOffset(index: number, active: number, length: number, loop: boolean) {
   const raw = index - active;
   if (!loop || length <= 1) return raw;
-
   const alt = raw > 0 ? raw - length : raw + length;
   return Math.abs(alt) < Math.abs(raw) ? alt : raw;
 }
 
+/* ─── Mobile flat list (≤768px only) ───────────────── */
+function MobileProjectList<T extends CardStackItem>({
+  items,
+  onAction,
+  className,
+}: {
+  items: T[];
+  onAction?: (item: T) => void;
+  className?: string;
+}) {
+  return (
+    <div className={cn('flex flex-col gap-5 px-4', className)}>
+      {items.map((item) => (
+        <div
+          key={item.id}
+          className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+        >
+          {/* Full-width image with 16/9 ratio */}
+          <div className="aspect-video w-full overflow-hidden bg-white/5">
+            {item.imageSrc ? (
+              <img
+                src={item.imageSrc}
+                alt={item.title}
+                className="h-full w-full object-cover"
+                draggable={false}
+                loading="lazy"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center text-sm text-white/50">
+                No image
+              </div>
+            )}
+          </div>
+
+          {/* Title + button row */}
+          <div className="flex items-center justify-between gap-3 bg-black/70 px-4 py-3 backdrop-blur-md">
+            <span className="truncate text-sm font-semibold text-white/85">{item.title}</span>
+            {onAction && (
+              <button
+                type="button"
+                onClick={() => onAction(item)}
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-xs font-bold text-slate-900 transition-colors hover:bg-[#5ef0d8] active:scale-95"
+              >
+                See details
+                <SquareArrowOutUpRight className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ─── Main CardStack component ──────────────────────── */
 export function CardStack<T extends CardStackItem>({
   items,
   initialIndex = 0,
@@ -79,8 +133,7 @@ export function CardStack<T extends CardStackItem>({
   showDots = true,
   className,
   onChangeIndex,
-    onAction,
-  
+  onAction,
   renderCard,
 }: CardStackProps<T>) {
   const reduceMotion = useReducedMotion();
@@ -88,34 +141,18 @@ export function CardStack<T extends CardStackItem>({
   const [active, setActive] = React.useState(() => wrapIndex(initialIndex, length));
   const [hovering, setHovering] = React.useState(false);
 
-  // Responsive card dimensions
-  const [responsiveWidth, setResponsiveWidth] = React.useState(cardWidth);
-  const [responsiveHeight, setResponsiveHeight] = React.useState(cardHeight);
+  // Switch to flat list on mobile (≤768px)
+  const [isMobile, setIsMobile] = React.useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth <= 768 : false
+  );
+  React.useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   React.useEffect(() => {
-    const update = () => {
-      const vw = window.innerWidth;
-      if (vw < 480) {
-        setResponsiveWidth(Math.min(vw - 32, cardWidth));
-        setResponsiveHeight(Math.round((vw - 32) * 0.6));
-      } else if (vw < 768) {
-        setResponsiveWidth(Math.min(vw - 48, cardWidth));
-        setResponsiveHeight(Math.round(Math.min(vw - 48, cardWidth) * 0.62));
-      } else if (vw < 1024) {
-        setResponsiveWidth(Math.min(vw * 0.7, cardWidth));
-        setResponsiveHeight(Math.round(Math.min(vw * 0.7, cardWidth) * 0.65));
-      } else {
-        setResponsiveWidth(cardWidth);
-        setResponsiveHeight(cardHeight);
-      }
-    };
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, [cardWidth, cardHeight]);
-
-  React.useEffect(() => {
-    setActive((current) => wrapIndex(current, length));
+    setActive((cur) => wrapIndex(cur, length));
   }, [length]);
 
   React.useEffect(() => {
@@ -124,45 +161,39 @@ export function CardStack<T extends CardStackItem>({
   }, [active, items, length, onChangeIndex]);
 
   const maxOffset = Math.max(0, Math.floor(maxVisible / 2));
-  const cardSpacing = Math.max(12, Math.round(responsiveWidth * (1 - overlap)));
+  const cardSpacing = Math.max(12, Math.round(cardWidth * (1 - overlap)));
   const stepDeg = maxOffset > 0 ? spreadDeg / maxOffset : 0;
-
-  const canGoPrev = loop || active > 0;
   const canGoNext = loop || active < length - 1;
-
-  const prev = React.useCallback(() => {
-    if (!length || !canGoPrev) return;
-    setActive((current) => wrapIndex(current - 1, length));
-  }, [canGoPrev, length]);
 
   const next = React.useCallback(() => {
     if (!length || !canGoNext) return;
-    setActive((current) => wrapIndex(current + 1, length));
+    setActive((cur) => wrapIndex(cur + 1, length));
   }, [canGoNext, length]);
 
   React.useEffect(() => {
-    if (!autoAdvance || reduceMotion || !length) return;
+    if (!autoAdvance || reduceMotion || !length || isMobile) return;
     if (pauseOnHover && hovering) return;
-
     const timer = window.setInterval(() => {
       if (loop || active < length - 1) next();
     }, Math.max(700, intervalMs));
-
     return () => window.clearInterval(timer);
-  }, [active, autoAdvance, hovering, intervalMs, length, loop, next, pauseOnHover, reduceMotion]);
+  }, [active, autoAdvance, hovering, intervalMs, length, loop, next, pauseOnHover, reduceMotion, isMobile]);
 
   if (!length) return null;
 
+  // ── Mobile: clean vertical list ──
+  if (isMobile) {
+    return <MobileProjectList items={items} onAction={onAction} className={className} />;
+  }
+
+  // ── Desktop / tablet: original 3D stack ──
   return (
     <div
       className={cn('w-full', className)}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
-      <div
-        className="relative w-full"
-        style={{ height: Math.max(300, responsiveHeight + 100) }}
-      >
+      <div className="relative w-full" style={{ height: Math.max(420, cardHeight + 100) }}>
         <div
           className="pointer-events-none absolute inset-x-0 top-8 mx-auto h-48 w-[72%] rounded-full bg-black/10 blur-3xl dark:bg-white/5"
           aria-hidden="true"
@@ -180,9 +211,7 @@ export function CardStack<T extends CardStackItem>({
             {items.map((item, index) => {
               const offset = signedOffset(index, active, length, loop);
               const abs = Math.abs(offset);
-              const visible = abs <= maxOffset;
-
-              if (!visible) return null;
+              if (abs > maxOffset) return null;
 
               const rotateZ = offset * stepDeg;
               const x = offset * cardSpacing;
@@ -202,47 +231,19 @@ export function CardStack<T extends CardStackItem>({
                     'will-change-transform select-none backdrop-blur-xl',
                     activeCard ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer',
                   )}
-                  style={{
-                    width: responsiveWidth,
-                    height: responsiveHeight,
-                    zIndex,
-                    transformStyle: 'preserve-3d',
-                  }}
-                  initial={
-                    reduceMotion
-                      ? false
-                      : { opacity: 0, y: y + 42, x, rotateZ, rotateX, scale }
-                  }
-                  animate={{
-                    opacity: 1,
-                    x,
-                    y: y + lift,
-                    rotateZ,
-                    rotateX,
-                    scale,
-                  }}
-                  transition={{
-                    type: 'spring',
-                    stiffness: springStiffness,
-                    damping: springDamping,
-                  }}
+                  style={{ width: cardWidth, height: cardHeight, zIndex, transformStyle: 'preserve-3d' }}
+                  initial={reduceMotion ? false : { opacity: 0, y: y + 42, x, rotateZ, rotateX, scale }}
+                  animate={{ opacity: 1, x, y: y + lift, rotateZ, rotateX, scale }}
+                  transition={{ type: 'spring', stiffness: springStiffness, damping: springDamping }}
                   onClick={() => setActive(index)}
                 >
                   <div
                     className="h-full w-full"
-                    style={{
-                      transform: `translateZ(${z}px)`,
-                      transformStyle: 'preserve-3d',
-                    }}
+                    style={{ transform: `translateZ(${z}px)`, transformStyle: 'preserve-3d' }}
                   >
-                    {renderCard ? (
-                      renderCard(item, { active: activeCard })
-                    ) : (
-<DefaultCard
-  item={item}
-  active={activeCard}
-  onAction={onAction}
-/>                    )}
+                    {renderCard
+                      ? renderCard(item, { active: activeCard })
+                      : <DefaultCard item={item} active={activeCard} onAction={onAction} />}
                   </div>
                 </motion.div>
               );
@@ -251,27 +252,23 @@ export function CardStack<T extends CardStackItem>({
         </div>
       </div>
 
-      {showDots ? (
+      {showDots && (
         <div className="mt-6 flex items-center justify-center gap-3">
           <div className="flex items-center gap-2">
-            {items.map((item, index) => {
-              const isActive = index === active;
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => setActive(index)}
-                  className={cn(
-                    'h-2.5 rounded-full transition-all duration-300',
-                    isActive ? 'w-7 bg-white' : 'w-2.5 bg-white/30 hover:bg-white/60',
-                  )}
-                  aria-label={`Go to ${item.title}`}
-                />
-              );
-            })}
+            {items.map((item, index) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setActive(index)}
+                className={cn(
+                  'h-2.5 rounded-full transition-all duration-300',
+                  index === active ? 'w-7 bg-white' : 'w-2.5 bg-white/30 hover:bg-white/60',
+                )}
+                aria-label={`Go to ${item.title}`}
+              />
+            ))}
           </div>
-
-          {items[active]?.href ? (
+          {items[active]?.href && (
             <a
               href={items[active]!.href}
               target="_blank"
@@ -281,16 +278,16 @@ export function CardStack<T extends CardStackItem>({
             >
               <SquareArrowOutUpRight className="h-4 w-4" />
             </a>
-          ) : null}
+          )}
         </div>
-      ) : null}
+      )}
     </div>
   );
 }
 
+/* ─── Desktop card: image fills card, button on hover ── */
 function DefaultCard<T extends CardStackItem>({
   item,
-  active,
   onAction,
 }: {
   item: T;
@@ -299,7 +296,6 @@ function DefaultCard<T extends CardStackItem>({
 }) {
   return (
     <div className="group relative h-full w-full overflow-hidden rounded-[28px]">
-      {/* Image — fills the full card */}
       <div className="absolute inset-0">
         {item.imageSrc ? (
           <img
@@ -316,11 +312,9 @@ function DefaultCard<T extends CardStackItem>({
         )}
       </div>
 
-      {/* Subtle overlay — only visible on hover to reveal the button */}
-      <div className="absolute inset-0 bg-black/0 transition-all duration-400 group-hover:bg-black/50" />
+      <div className="absolute inset-0 bg-black/0 transition-all duration-300 group-hover:bg-black/50" />
 
-      {/* "See more details" button — centred, fades in on hover */}
-      {onAction ? (
+      {onAction && (
         <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <button
             type="button"
@@ -331,7 +325,7 @@ function DefaultCard<T extends CardStackItem>({
             <SquareArrowOutUpRight className="h-4 w-4" />
           </button>
         </div>
-      ) : null}
+      )}
     </div>
   );
 }
