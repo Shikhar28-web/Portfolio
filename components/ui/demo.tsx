@@ -27,6 +27,7 @@ import { X, ExternalLink } from 'lucide-react'
 import { CardStack, CardStackItem } from '@/components/ui/card-stack'
 import { Header } from '@/components/ui/header-2'
 import { SplineScene } from '@/components/ui/splite'
+import { TextHoverEffect, FooterBackgroundGradient } from '@/components/ui/hover-footer'
 
 type ProjectCard = CardStackItem & {
   overview: string
@@ -124,7 +125,7 @@ export function SplineSceneBasic() {
     {
       id: 1,
       title: 'Aira',
-      
+
       ctaLabel: 'Open project',
       description: 'A multilingual AI companion platform with voice chat, offline AI processing, wake-word detection, and personalized companion interactions powered by a multi-agent AI system.',
       overview: 'A multilingual AI companion platform with voice chat, offline AI processing, wake-word detection, and personalized companion interactions powered by a multi-agent AI system.',
@@ -133,12 +134,12 @@ export function SplineSceneBasic() {
       imageSrc: '/Aira.png',
       githubUrl: 'https://github.com/Shikhar28-web/Aira#aira-aira',
       liveUrl: 'https://github.com/Shikhar28-web/Aira#aira-aira',
-      details: ['Python', 'Flask', 'SQLite', 'JavaScript', 'HTML', 'CSS', 'Ollama', 'Faster-Whisper', 'Coqui XTTS v2',' ElevenLabs API', 'TensorFlow', 'pyttsx3', 'bcrypt', 'Web APIs'],
+      details: ['Python', 'Flask', 'SQLite', 'JavaScript', 'HTML', 'CSS', 'Ollama', 'Faster-Whisper', 'Coqui XTTS v2', ' ElevenLabs API', 'TensorFlow', 'pyttsx3', 'bcrypt', 'Web APIs'],
     },
     {
       id: 2,
       title: 'Quiz Hub ',
-      
+
       ctaLabel: 'Open project',
       description: 'AI-powered quiz generation platform that creates smart quizzes from files, URLs, or text with auto-grading and AI assistance.',
       overview: 'Quiz Hub helps teachers and learners generate interactive quizzes instantly using AI. It supports multiple question types, shareable test links, student feedback, and real-time evaluation.',
@@ -147,7 +148,7 @@ export function SplineSceneBasic() {
       imageSrc: '\quizehub.png',
       githubUrl: 'https://github.com/Shikhar28-web/Quiz-Hub',
       liveUrl: 'https://github.com/Shikhar28-web/Quiz-Hub',
-      details: ['Flask', 'SQLite', 'HTML','CSS', 'JavaScript', 'Google Gemini API', 'Hugging Face API'],
+      details: ['Flask', 'SQLite', 'HTML', 'CSS', 'JavaScript', 'Google Gemini API', 'Hugging Face API'],
     },
     {
       id: 3,
@@ -189,7 +190,7 @@ export function SplineSceneBasic() {
       imageSrc: '\stcok.png',
       githubUrl: 'https://github.com/Shikhar28-web/Stock-Prediction',
       liveUrl: 'https://github.com/Shikhar28-web/Stock-Prediction',
-      details: ['Python', 'Streamlit', 'TensorFlow', 'Keras', 'Pandas', 'NumPy',' Scikit-Learn', 'Matplotlib', 'yFinance', 'HTML', 'CSS', 'JavaScript'],
+      details: ['Python', 'Streamlit', 'TensorFlow', 'Keras', 'Pandas', 'NumPy', ' Scikit-Learn', 'Matplotlib', 'yFinance', 'HTML', 'CSS', 'JavaScript'],
     },
   ]
   const [selectedProject, setSelectedProject] = useState<ProjectCard | null>(null)
@@ -286,7 +287,7 @@ export function SplineSceneBasic() {
     }
   }, [selectedProject])
 
-  
+
 
   return (
     <div ref={heroRef} className="hero-page" id="home">
@@ -304,7 +305,7 @@ export function SplineSceneBasic() {
             </span>
           </h1>
           <p className="subtitle">
-            B.Tech 3rd year student passionate about full-stack development,
+            B.Tech(H) 3rd year student passionate about full-stack development,
             AI/ML, and creating innovative digital experiences. Specializing in
             modern web technologies with a keen interest in data science.
           </p>
@@ -315,10 +316,10 @@ export function SplineSceneBasic() {
             scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
             className="hero-spline"
           />
-          </div>
+        </div>
       </section>
 
-      
+
       <section className="about-full fade-item" id="about">
         <div className="about-badges" aria-hidden="true">
           {floatingBadges.map((badge) => (
@@ -402,7 +403,7 @@ export function SplineSceneBasic() {
       <section className="projects-section" id="projects">
         <div className="projects-header fade-item">
           <h2 className="projects-heading">Crafting smart digital experiences with AI and modern tech.</h2>
-          
+
         </div>
 
         <div className="projects-stack-wrap fade-item">
@@ -420,28 +421,14 @@ export function SplineSceneBasic() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="site-footer fade-item" id="contact">
-        <div className="footer-inner">
-          {/* Nav tabs */}
-          <nav className="footer-nav" aria-label="Footer navigation">
-            {[
-              { label: 'Home', href: '#home' },
-              { label: 'About', href: '#about' },
-              { label: 'Skills', href: '#skill' },
-              { label: 'Projects', href: '#projects' },
-              { label: 'Contact', href: '#contact' },
-            ].map((link) => (
-              <a key={link.label} href={link.href} className="footer-nav-link">
-                {link.label}
-              </a>
-            ))}
-          </nav>
+      <footer className="site-footer fade-item relative overflow-hidden" id="contact">
+        <div className="footer-inner relative z-10">
 
-          {/* Divider */}
-          <div className="footer-divider" aria-hidden="true" />
+
+
 
           {/* Contact section */}
-          <div className="footer-contact">
+          <div className="footer-contact pb-12">
             <p className="footer-contact-heading">Get in touch</p>
             <div className="footer-contact-links">
               {/* Email */}
@@ -500,16 +487,18 @@ export function SplineSceneBasic() {
                 </span>
               </a>
             </div>
-          </div>
 
-          {/* Bottom bar */}
-          <div className="footer-bottom">
-            <p className="footer-copy">
-              © {new Date().getFullYear()} Shikhar Verma. Built with React &amp; Vite.
-            </p>
-            <p className="footer-made">Designed &amp; developed with ♥</p>
+
+            {/* Divider */}
+            <div className="footer-divider" aria-hidden="true" />
           </div>
         </div>
+        {/* Text hover effect */}
+        <div className="lg:flex hidden h-[30rem] -mt-24 -mb-36 relative z-0">
+          <TextHoverEffect text="SHIKHAR" className="z-50" />
+        </div>
+
+        <FooterBackgroundGradient />
       </footer>
 
       {selectedProject ? (
