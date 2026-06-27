@@ -505,7 +505,7 @@ export function SplineSceneBasic() {
           </div>
         </div>
         {/* Text hover effect */}
-        <div className="lg:flex hidden h-[20rem] -mt-16 relative z-0 overflow-hidden">
+        <div className="lg:flex hidden h-[30rem] -mt-24 -mb-36 relative z-0">
           <TextHoverEffect text="SHIKHAR" className="z-50" />
         </div>
 
