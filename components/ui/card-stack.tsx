@@ -66,11 +66,11 @@ function MobileProjectList<T extends CardStackItem>({
   className?: string;
 }) {
   return (
-    <div className={cn('flex flex-col gap-5 px-4', className)}>
+    <div className={cn('grid grid-cols-1 md:grid-cols-2 gap-6 px-4 max-w-6xl mx-auto w-full', className)}>
       {items.map((item) => (
         <div
           key={item.id}
-          className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+          className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] bg-slate-900/50 backdrop-blur-md flex flex-col justify-between"
         >
           {/* Full-width image with 16/9 ratio */}
           <div className="aspect-video w-full overflow-hidden bg-white/5">
@@ -141,12 +141,12 @@ export function CardStack<T extends CardStackItem>({
   const [active, setActive] = React.useState(() => wrapIndex(initialIndex, length));
   const [hovering, setHovering] = React.useState(false);
 
-  // Switch to flat list on mobile (≤768px)
+  // Switch to flat list on mobile/tablet (≤1024px)
   const [isMobile, setIsMobile] = React.useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth <= 768 : false
+    typeof window !== 'undefined' ? window.innerWidth <= 1024 : false
   );
   React.useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 768);
+    const check = () => setIsMobile(window.innerWidth <= 1024);
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);

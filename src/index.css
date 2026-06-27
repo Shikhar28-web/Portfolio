@@ -476,212 +476,7 @@ canvas {
   }
 }
 
-/* ── Responsive: tablet (768–1024px) ── */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .hero-content {
-    grid-template-columns: 1fr 1fr;
-    min-height: 100vh;
-  }
-
-  .hero-copy {
-    padding: clamp(2rem, 5vw, 4rem);
-    padding-top: clamp(4rem, 7vw, 6rem);
-  }
-
-  .hero-robot {
-    height: 100vh;
-  }
-
-  .about-content {
-    grid-template-columns: 1fr 1fr;
-    min-height: auto;
-    padding: 0 2rem;
-    gap: 2rem;
-  }
-
-  .about-portrait-frame {
-    width: min(72vw, 320px);
-  }
-
-  .about-badges .box1 { left: 1%; top: 18%; }
-  .about-badges .box2 { right: 1%; top: 18%; }
-  .about-badges .box3 { left: 1%; bottom: 10%; }
-  .about-badges .box4 { right: 5%; bottom: 8%; }
-
-  .skills-panels {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .skills-section {
-    min-height: auto;
-  }
-
-  .project-modal {
-    grid-template-columns: 1fr;
-    max-height: 90vh;
-  }
-
-  .project-modal-media {
-    height: 240px;
-    min-height: unset;
-  }
-
-  .project-modal-body {
-    max-height: calc(90vh - 240px);
-  }
-}
-
-/* ── Responsive: mobile + small tablet (≤768px) ── */
-@media (max-width: 768px) {
-  .hero-content {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-
-  .hero-copy {
-    min-height: auto;
-    padding: 6rem 1.5rem 2rem;
-  }
-
-  .hero-robot {
-    height: 55vw;
-    min-height: 220px;
-    max-height: 420px;
-  }
-
-  .about-full {
-    padding: 2rem 0;
-  }
-
-  .about-content {
-    grid-template-columns: 1fr;
-    min-height: auto;
-    gap: 1.5rem;
-    padding: 0 1.25rem;
-  }
-
-  .about-details {
-    grid-template-columns: 1fr;
-  }
-
-  .about-visual {
-    min-height: auto;
-    order: -1;
-  }
-
-  .about-portrait-frame {
-    width: min(72vw, 280px);
-  }
-
-  .about-badges {
-    position: static;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.65rem;
-    padding: 0 1.25rem 1rem;
-  }
-
-  .float-box {
-    position: static;
-    min-width: 0;
-    animation: none;
-    transform: none;
-  }
-
-  .skills-section {
-    min-height: auto;
-    padding: 1rem 1rem 2rem;
-  }
-
-  .skills-panels {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.65rem;
-  }
-
-  .skills-panel {
-    padding: 0.8rem;
-  }
-
-  .skill-ball {
-    width: clamp(4rem, 18vw, 5rem);
-  }
-
-  .skill-ball-icon {
-    width: 1.1rem;
-    height: 1.1rem;
-  }
-
-  .skill-ball-name {
-    font-size: 0.55rem;
-  }
-
-  .projects-section {
-    padding: 1.5rem 1rem 3rem;
-  }
-
-  .project-modal {
-    grid-template-columns: 1fr;
-    border-radius: 20px;
-    max-height: 88vh;
-  }
-
-  .project-modal-media {
-    height: 200px;
-    min-height: unset;
-  }
-
-  .project-modal-body {
-    max-height: calc(88vh - 200px);
-    overflow-y: auto;
-  }
-
-  .project-modal-title {
-    font-size: clamp(1.4rem, 6vw, 2rem);
-  }
-
-  .footer-contact-card {
-    min-width: 0;
-    width: 100%;
-  }
-
-  .footer-contact-links {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-/* ── Responsive: small mobile (≤480px) ── */
-@media (max-width: 480px) {
-  .hero-copy {
-    padding: 5.5rem 1rem 1.5rem;
-  }
-
-  .about-badges {
-    grid-template-columns: 1fr;
-  }
-
-  .skills-panels {
-    grid-template-columns: 1fr;
-  }
-
-  .about-details {
-    grid-template-columns: 1fr;
-  }
-
-  .footer-nav {
-    gap: 0.25rem;
-  }
-
-  .footer-nav-link {
-    padding: 0.4rem 0.75rem;
-    font-size: 0.82rem;
-  }
-}
+/* (Media queries moved to the bottom of the file to fix cascade order) */
 
 .hero-visual {
   position: relative;
@@ -1226,76 +1021,7 @@ canvas {
   }
 }
 
-/* ── Legacy 900px block kept for skills/hero specifics ── */
-@media (max-width: 900px) {
-  body {
-    overflow: auto;
-  }
-
-  .hero-robot {
-    height: 70vh;
-  }
-
-  .hero-content {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-copy {
-    min-height: 48vh;
-    padding-bottom: 0;
-  }
-
-  .hero-visual {
-    min-height: 52vh;
-    height: 52vh;
-  }
-
-  .skills-section {
-    min-height: auto;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-
-  .skills-panels {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.7rem;
-    height: auto;
-  }
-
-  .skills-panel {
-    padding: 0.8rem;
-  }
-
-  .skill-ball-grid {
-    gap: 0.65rem;
-  }
-
-  .skill-ball {
-    width: 4.6rem;
-  }
-
-  .skill-ball-icon {
-    width: 1.2rem;
-    height: 1.2rem;
-  }
-
-  .skill-ball-name {
-    font-size: 0.58rem;
-  }
-
-  .skills-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .section-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cursor-glow {
-    width: 420px;
-    height: 420px;
-  }
-}
+/* (Media queries moved to the bottom of the file to fix cascade order) */
 
 @keyframes spotlight {
   0% {
@@ -1568,6 +1294,259 @@ canvas {
   color: rgba(94, 240, 216, 0.48);
 }
 
+/* ==========================================
+   CONSOLIDATED RESPONSIVE MEDIA QUERIES (Desktop-First)
+   ========================================== */
+
+/* ── Tablet (≤1024px) ── */
+@media (max-width: 1024px) {
+  .hero-content {
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+  }
+
+  .hero-copy {
+    padding: clamp(2rem, 5vw, 4rem);
+    padding-top: clamp(4rem, 7vw, 6rem);
+  }
+
+  .hero-robot {
+    height: 100vh;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr 1fr;
+    min-height: auto;
+    padding: 0 2rem;
+    gap: 2rem;
+  }
+
+  .about-portrait-frame {
+    width: min(72vw, 320px);
+  }
+
+  /* Make badges static at <= 1024px to prevent collision with content */
+  .about-badges {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    padding: 0 1.25rem 1rem;
+    pointer-events: auto;
+  }
+
+  .float-box {
+    position: static;
+    min-width: 0;
+    animation: none;
+    transform: none;
+  }
+
+  .skills-panels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .skills-section {
+    min-height: auto;
+  }
+
+  .project-modal {
+    grid-template-columns: 1fr;
+    max-height: 90vh;
+  }
+
+  .project-modal-media {
+    height: 240px;
+    min-height: unset;
+  }
+
+  .project-modal-body {
+    max-height: calc(90vh - 240px);
+  }
+}
+
+/* ── Medium Tablet (≤900px) ── */
+@media (max-width: 900px) {
+  body {
+    overflow: auto;
+  }
+
+  .hero-robot {
+    height: 70vh;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-copy {
+    min-height: 48vh;
+    padding-bottom: 0;
+  }
+
+  .hero-visual {
+    min-height: 52vh;
+    height: 52vh;
+  }
+
+  .skills-section {
+    min-height: auto;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .skills-panels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+    height: auto;
+  }
+
+  .skills-panel {
+    padding: 0.8rem;
+  }
+
+  .skill-ball-grid {
+    gap: 0.65rem;
+  }
+
+  .skill-ball {
+    width: 4.6rem;
+  }
+
+  .skill-ball-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .skill-ball-name {
+    font-size: 0.58rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cursor-glow {
+    width: 420px;
+    height: 420px;
+  }
+}
+
+/* ── Mobile & Small Tablet (≤768px) ── */
+@media (max-width: 768px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .hero-copy {
+    min-height: auto;
+    padding: 6rem 1.5rem 2rem;
+  }
+
+  .hero-robot {
+    display: none;
+    height: 55vw;
+    min-height: 220px;
+    max-height: 420px;
+  }
+
+  .about-full {
+    padding: 2rem 0;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 1.5rem;
+    padding: 0 1.25rem;
+  }
+
+  .about-details {
+    grid-template-columns: 1fr;
+  }
+
+  .about-visual {
+    min-height: auto;
+    order: -1;
+  }
+
+  .about-portrait-frame {
+    width: min(72vw, 280px);
+  }
+
+  .skills-section {
+    min-height: auto;
+    padding: 1rem 1rem 2rem;
+  }
+
+  .skills-panels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .skills-panel {
+    padding: 0.8rem;
+  }
+
+  .skill-ball {
+    width: clamp(4rem, 18vw, 5rem);
+  }
+
+  .skill-ball-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .skill-ball-name {
+    font-size: 0.55rem;
+  }
+
+  .projects-section {
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .project-modal {
+    grid-template-columns: 1fr;
+    border-radius: 20px;
+    max-height: 88vh;
+  }
+
+  .project-modal-media {
+    height: 200px;
+    min-height: unset;
+  }
+
+  .project-modal-body {
+    max-height: calc(88vh - 200px);
+    overflow-y: auto;
+  }
+
+  .project-modal-title {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+  }
+
+  .footer-contact-card {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .footer-contact-links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ── Mini Mobile (≤640px) ── */
 @media (max-width: 640px) {
   .footer-contact-links {
     flex-direction: column;
@@ -1583,38 +1562,31 @@ canvas {
     text-align: center;
   }
 }
-.hero-robot {
 
-  position: relative;
+/* ── Small Mobile (≤480px) ── */
+@media (max-width: 480px) {
+  .hero-copy {
+    padding: 5.5rem 1rem 1.5rem;
+  }
 
-  width: 100%;
+  .about-badges {
+    grid-template-columns: 1fr;
+  }
 
-  height: 100vh;
+  .skills-panels {
+    grid-template-columns: 1fr;
+  }
 
-  overflow: visible;
+  .about-details {
+    grid-template-columns: 1fr;
+  }
 
-  display: flex;
+  .footer-nav {
+    gap: 0.25rem;
+  }
 
-  align-items: center;
-
-  justify-content: center;
-
-}
-
-.hero-spline {
-
-  width: 100%;
-
-  height: 100%;
-
-  overflow: visible;
-
-}
-
-.hero {
-
-  overflow: visible;
-
-  min-height: 110vh;
-
+  .footer-nav-link {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.82rem;
+  }
 }

@@ -194,6 +194,15 @@ export function SplineSceneBasic() {
     },
   ]
   const [selectedProject, setSelectedProject] = useState<ProjectCard | null>(null)
+  const [isPhone, setIsPhone] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth <= 768 : false
+  )
+
+  useEffect(() => {
+    const check = () => setIsPhone(window.innerWidth <= 768)
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   useEffect(() => {
     const hero = heroRef.current
@@ -311,12 +320,14 @@ export function SplineSceneBasic() {
           </p>
         </div>
 
-        <div className="hero-robot" aria-label="3D robot scene">
-          <SplineScene
-            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-            className="hero-spline"
-          />
-        </div>
+        {!isPhone && (
+          <div className="hero-robot" aria-label="3D robot scene">
+            <SplineScene
+              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+              className="hero-spline"
+            />
+          </div>
+        )}
       </section>
 
 
